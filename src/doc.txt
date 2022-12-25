@@ -1,0 +1,20 @@
+This is a valid implementation of the ft_printf function in C. It takes a format string and a variable number of arguments, just like the standard printf function. It then processes the format string character by character, and when it encounters a '%' character, it calls the eval_format function to determine which conversion specifier follows and to print the corresponding argument.
+
+The eval_format function takes the format string, a va_list argument, a pointer to an integer (len) that keeps track of the number of characters printed so far, and the current index in the format string (i). It then determines which conversion specifier follows and calls the appropriate function to print the corresponding argument. For example, if the conversion specifier is 'c', it calls the ft_print_str function with the mode parameter set to 0 to print a single character. If the conversion specifier is 's', it calls the ft_print_str function with the mode parameter set to 1 to print a string.
+
+This implementation supports the following conversion specifiers:
+
+'c': prints a single character
+'s': prints a string
+'d' or 'i': prints a signed integer in decimal format
+'x': prints an unsigned integer in lowercase hexadecimal format
+'X': prints an unsigned integer in uppercase hexadecimal format
+'u': prints an unsigned integer in decimal format
+'p': prints a pointer in hexadecimal format
+'%': prints a '%' character
+Note that this implementation uses the write function from the unistd.h header to output the characters, rather than the printf function. This is because printf is part of the standard C library, and the goal of this exercise is to implement the ft_printf function without using any standard library functions.
+
+
+
+
+

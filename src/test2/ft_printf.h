@@ -4,8 +4,9 @@
 # include <stdarg.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <limits.h>
+# include <stdint.h>
+# include <stdio.h>
 
-int		ft_printf(const char *format, ...);
+int	ft_printf(const char *fmt, ...);
 
 #endif
