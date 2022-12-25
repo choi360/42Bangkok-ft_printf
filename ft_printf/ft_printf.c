@@ -38,10 +38,10 @@ void print_int(int64_t n, int *count)
     *count += write(1, &"0123456789"[n % 10], 1);
 }
 
-void print_unit(uint64_t n, int *count)
+void print_uint(uint64_t n, int *count)
 {
     if (n >= 10)
-        print_unit(n / 10, count);
+        print_uint(n / 10, count);
     *count += write(1, &"0123456789"[n % 10], 1);
 }
 
@@ -69,18 +69,15 @@ int format_check(const char *format, va_list args, int *count, int i)
     else if (format[i] == 'd')
         print_int(va_arg(args, int), count);
     else if (format[i] == 'u')
-        print_unit(va_arg(args, unsigned int), count);
+        print_uint(va_arg(args, unsigned int), count);
     else if (format[i] == 'x')
         print_hex(va_arg(args, unsigned int), count, "0123456789abcdef");
     else if (format[i] == 'X')
         print_hex(va_arg(args, unsigned int), count, "0123456789ABCDEF");
     else if (format[i] == 'p')
-    {
-        *count += write(1, "0x", 2);
         print_pointer(va_arg(args, uintptr_t), count);
-    }
     else if (format[i] == '%')
-        *count += write(1, "%", 1);
+        *count += write(1, "%%", 1);
     else
         return (0);
     return (1);
@@ -96,9 +93,7 @@ int ft_printf(const char *format, ...)
     {
         if (format[i] == '%')
         {
-            i++;
-            if (!format_check(format, args, &count, i))
-                return (-1);
+            i += format_check(format, args, &count, i + 1);
         }
         else
             count += write(1, &format[i], 1);
@@ -108,7 +103,6 @@ int ft_printf(const char *format, ...)
     return (count);
 }
 
-// Test main
 int main(void)
 {
     int i = 42;
@@ -118,10 +112,10 @@ int main(void)
     unsigned int x = 42;
     unsigned int X = 42;
     void *p = &i;
-    ft_printf("printf: %s %c %d %u %x %X %p\n", s, c, i, u, x, X, p);
-    ft_printf("printf: %s %c %d %u %x %X %p\n", s, c, i, u, x, X, p);
-    ft_printf("printf: %s %c %d %u %x %X %p\n", NULL, c, i, u, x, X, p);
-    ft_printf("printf: %s %c %d %u %x %X %p\n", s, c, i, u, x, X, NULL);
-    ft_printf("printf: %s %c %d %u %x %X %p\n", NULL, c, i, u, x, X, NULL);
-    ft_printf("printf: %s %c %d %u %x %X %p\n", s, c, i, u, x, X, p);
+    ft_printf("printf: %s %c %d %u %x %X %p %%\n", s, c, i, u, x, X, p);
+    ft_printf("printf: %s %c %d %u %x %X %p %%\n", s, c, i, u, x, X, p);
+    ft_printf("printf: %s %c %d %u %x %X %p %%\n", NULL, c, i, u, x, X, p);
+    ft_printf("printf: %s %c %d %u %x %X %p %%\n", s, c, i, u, x, X, NULL);
+    ft_printf("printf: %s %c %d %u %x %X %p %%\n", NULL, c, i, u, x, X, NULL);
+    ft_printf("printf: %s %c %d %u %x %X %p %%\n", s, c, i, u, x, X, p);
 }
