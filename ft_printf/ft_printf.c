@@ -1,23 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kmethawa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/27 18:41:33 by kmethawa          #+#    #+#             */
+/*   Updated: 2022/12/27 18:49:52 by kmethawa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-int ft_printf(const char *format, ...)
+int	ft_printf(const char *format, ...)
 {
-    va_list args;
-    int count = 0;
-    int i = 0;
-    va_start(args, format);
-    while (format[i])
-    {
-        if (format[i] == '%')
-        {
-            i += format_check(format, args, &count, i + 1);
-        }
-        else
-            count += write(1, &format[i], 1);
-        i++;
-    }
-    va_end(args);
-    return (count);
+	va_list	args;
+	int		count;
+	int		i;
+
+	count = 0;
+	i = 0;
+	va_start(args, format);
+	while (format[i])
+	{
+		if (format[i] == '%')
+		{
+			i += format_check(format, args, &count, i + 1);
+		}
+		else
+			count += write(1, &format[i], 1);
+		i++;
+	}
+	va_end(args);
+	return (count);
 }
 /*
 int main(void)
