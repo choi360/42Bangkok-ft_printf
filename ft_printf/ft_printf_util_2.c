@@ -6,7 +6,7 @@
 /*   By: kmethawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 19:15:01 by kmethawa          #+#    #+#             */
-/*   Updated: 2022/12/27 19:20:41 by kmethawa         ###   ########.fr       */
+/*   Updated: 2022/12/27 19:44:30 by kmethawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	print_pointer(uintptr_t n, int *count)
 int	format_check(const char *format, va_list args, int *count, int i)
 {
 	if (format[i] == 's')
-		*count += print_string(va_arg(args, *char));
+		*count += print_string(va_arg(args, char *));
 	else if (format[i] == 'c')
 		*count += print_char(va_arg(args, int));
 	else if (format[i] == 'd' || format[i] == 'i')
